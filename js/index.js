@@ -24,8 +24,7 @@ for (const emp of employees) {
                 <img src=./images/photos/${emp.image} alt="Jeremy Robson" class="profile-photo">
                 <p>${emp.name}</p>
                 <p>${emp.title}</p>
-                <p>${emp.bio}</p>
-                </p>
+                <p class="bio">${emp.bio}</p>
                 <img src="./images/linkedin.png" alt="LinkedIn" class="socials">
 
             </div>
