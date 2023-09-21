@@ -19,8 +19,26 @@ for (const team of uniqueTeams) {
   selectElement.innerHTML += `<option value="${team}">${capitalizedTeam}</option>`;
 }
 
-for (const emp of employees) {
-  mainElement.innerHTML += `  <div class="employee-card">
+selectElement.addEventListener("change", function (e) {
+  console.log("change triggered");
+  const selectedTeam = e.target.value;
+  let filteredEmployees;
+
+  if (selectedTeam === "all") {
+    filteredEmployees = employees;
+  } else {
+    filteredEmployees = employees.filter(
+      (employee) => employee.team === selectedTeam
+    );
+  }
+
+  renderEmployees(filteredEmployees);
+});
+
+function renderEmployees(employeeArray) {
+  mainElement.innerHTML = "";
+  for (const emp of employeeArray) {
+    mainElement.innerHTML += `  <div class="employee-card">
                 <img src=./images/photos/${emp.image} alt="Jeremy Robson" class="profile-photo">
                 <p>${emp.name}</p>
                 <p>${emp.title}</p>
@@ -29,4 +47,7 @@ for (const emp of employees) {
 
             </div>
             `;
+  }
 }
+
+renderEmployees(employees);
