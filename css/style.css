@@ -158,3 +158,25 @@ p {
   line-height: 150%; /* 1.40625rem */
   margin-bottom: 10px;
 }
+
+@media only screen and (max-width: 768px) {
+  /* Insert your mobile styles here */
+  body {
+    background-color: #f7f7f7; /* Just an example style */
+  }
+
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #eaeaea;
+  }
+
+  /* Other mobile-specific styles */
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+}
