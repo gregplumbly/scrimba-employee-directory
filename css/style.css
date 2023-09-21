@@ -1,4 +1,4 @@
-/* Box sizing rules */
+/* Box sizing rules from andy bell*/
 *,
 *::before,
 *::after {
@@ -97,7 +97,7 @@ body {
 }
 
 .container {
-  width: 960px;
+  max-width: 960px;
   margin: 0 auto;
   background-color: #eaeaea;
 }
@@ -142,6 +142,7 @@ main {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  position: relative; /* This is needed for the absolute positioning of the social icons */
 }
 
 .profile-photo {
@@ -159,12 +160,41 @@ p {
   margin-bottom: 10px;
 }
 
-@media only screen and (max-width: 768px) {
-  /* Insert your mobile styles here */
-  body {
-    background-color: #f7f7f7; /* Just an example style */
+.social-icons {
+  display: flex;
+  gap: 10px; /* Optional: This creates space between the cons */
+  position: absolute;
+  bottom: 10px; /* distance from the bottom. Adjust as needed */
+  left: 50%; /* centers the block horizontally */
+  transform: translateX(-50%); /* ensures perfect centering */
+
+  display: flex;
+  gap: 10px;
+}
+
+.bio {
+  margin-bottom: 40px;
+  flex: 1;
+}
+
+@media only screen and (min-width: 540px) and (max-width: 768px) {
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #eaeaea;
   }
 
+  /* Other mobile-specific styles */
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 539px) {
   .container {
     width: 100%;
     margin: 0 auto;

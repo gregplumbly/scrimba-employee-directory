@@ -41,14 +41,25 @@ function getFilteredEmployees() {
 
 function renderEmployees(employeeArray) {
   mainElement.innerHTML = "";
-  for (const { image, name, title, bio } of employeeArray) {
+  for (const { image, name, title, bio, social } of employeeArray) {
+    let socialLinks = "";
+
+    if (social.twitter) {
+      socialLinks += `<a href="${social.twitter}" target="_blank"><img src="./images/twitter.png" alt="Twitter" class="socials"></a>`;
+    }
+
+    if (social.linkedin) {
+      socialLinks += `<a href="${social.linkedin}" target="_blank"><img src="./images/linkedin.png" alt="LinkedIn" class="socials"></a>`;
+    }
+
     mainElement.innerHTML += `
       <div class="employee-card">
-        <img src=./images/photos/${image} alt="${name}" class="profile-photo">
+        <img src="./images/photos/${image}" alt="${name}" class="profile-photo">
         <p>${name}</p>
         <p>${title}</p>
-        <p class="bio">${bio}</p>
-        <img src="./images/linkedin.png" alt="LinkedIn" class="socials">
+            <div class="bio">${bio}</div>
+                <div class="social-icons">${socialLinks}</div>
+
       </div>
     `;
   }

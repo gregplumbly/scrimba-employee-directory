@@ -239,6 +239,6 @@ const employees = [
       linkedin: "https://www.linkedin.com/",
     },
   },
-]
+];
 
-export default employees
+export default employees;
