@@ -2,54 +2,61 @@ import employees from "./employees.js";
 
 const selectElement = document.getElementById("team-filter");
 const mainElement = document.getElementById("main");
+const inputElement = document.getElementById("name");
 
-// loop through employees array and get a list of unique teams
-const uniqueTeams = [];
-for (const employee of employees) {
-  if (!uniqueTeams.includes(employee.team)) {
-    uniqueTeams.push(employee.team);
-  }
-}
+// get the unique teams to populate the select element so new teams are automatically added
+const uniqueTeams = new Set(employees.map((employee) => employee.team));
 
-for (const team of uniqueTeams) {
-  const firstLetter = team.charAt(0);
-  const firstLetterCap = firstLetter.toUpperCase();
-  const remainingLetters = team.slice(1);
-  const capitalizedTeam = firstLetterCap + remainingLetters;
-  selectElement.innerHTML += `
-  <option value="${team}">${capitalizedTeam}</option>
-  `;
-}
-
-selectElement.addEventListener("change", function (e) {
-  console.log("change triggered");
-  const selectedTeam = e.target.value;
-  let filteredEmployees;
-
-  if (selectedTeam === "everyone") {
-    filteredEmployees = employees;
-  } else {
-    filteredEmployees = employees.filter(
-      (employee) => employee.team === selectedTeam
-    );
-  }
-
-  renderEmployees(filteredEmployees);
+// populate the select element with teams
+uniqueTeams.forEach((team) => {
+  const capitalizedTeam = `${team.charAt(0).toUpperCase()}${team.slice(1)}`;
+  const option = document.createElement("option");
+  option.value = team;
+  option.textContent = capitalizedTeam;
+  selectElement.appendChild(option);
 });
+
+let selectedTeam = "everyone";
+
+selectElement.addEventListener("change", (e) => {
+  selectedTeam = e.target.value;
+  renderFilteredEmployees();
+});
+
+inputElement.addEventListener("input", () => {
+  renderFilteredEmployees();
+});
+
+function getFilteredEmployees() {
+  let teamFiltered =
+    selectedTeam === "everyone"
+      ? employees
+      : employees.filter((employee) => employee.team === selectedTeam);
+
+  const searchValue = inputElement.value.toLowerCase();
+  return teamFiltered.filter((employee) =>
+    employee.name.toLowerCase().includes(searchValue)
+  );
+}
 
 function renderEmployees(employeeArray) {
   mainElement.innerHTML = "";
-  for (const emp of employeeArray) {
-    mainElement.innerHTML += `  <div class="employee-card">
-                <img src=./images/photos/${emp.image} alt="Jeremy Robson" class="profile-photo">
-                <p>${emp.name}</p>
-                <p>${emp.title}</p>
-                <p class="bio">${emp.bio}</p>
-                <img src="./images/linkedin.png" alt="LinkedIn" class="socials">
-
-            </div>
-            `;
+  for (const { image, name, title, bio } of employeeArray) {
+    mainElement.innerHTML += `
+      <div class="employee-card">
+        <img src=./images/photos/${image} alt="${name}" class="profile-photo">
+        <p>${name}</p>
+        <p>${title}</p>
+        <p class="bio">${bio}</p>
+        <img src="./images/linkedin.png" alt="LinkedIn" class="socials">
+      </div>
+    `;
   }
+}
+
+function renderFilteredEmployees() {
+  const filteredEmployees = getFilteredEmployees();
+  renderEmployees(filteredEmployees);
 }
 
 renderEmployees(employees);
