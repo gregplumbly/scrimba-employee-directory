@@ -16,7 +16,9 @@ for (const team of uniqueTeams) {
   const firstLetterCap = firstLetter.toUpperCase();
   const remainingLetters = team.slice(1);
   const capitalizedTeam = firstLetterCap + remainingLetters;
-  selectElement.innerHTML += `<option value="${team}">${capitalizedTeam}</option>`;
+  selectElement.innerHTML += `
+  <option value="${team}">${capitalizedTeam}</option>
+  `;
 }
 
 selectElement.addEventListener("change", function (e) {
@@ -24,7 +26,7 @@ selectElement.addEventListener("change", function (e) {
   const selectedTeam = e.target.value;
   let filteredEmployees;
 
-  if (selectedTeam === "all") {
+  if (selectedTeam === "everyone") {
     filteredEmployees = employees;
   } else {
     filteredEmployees = employees.filter(
